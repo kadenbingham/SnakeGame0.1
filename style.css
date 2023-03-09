@@ -13,10 +13,9 @@ body {
   background-color: rgb(167, 227, 167);
 }
 #gameInfo {
-  display: flex;
   font-size: 25px;
-  flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  font-weight: bolder;
 }
 #game-board td {
   width: 20px;

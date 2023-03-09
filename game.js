@@ -40,8 +40,8 @@ function changeDir(event) {
       }
       break;
   }
-  moveSnake;
-  makeSnake;
+  moveSnake();
+  makeSnake();
 }
 // makeSnake
 function makeSnake() {
@@ -57,13 +57,19 @@ function makeSnake() {
 function moveSnake() {
   //drop the 'tail' of the snake and then add a new head
   //based off the direction variable
+  let newHead;
+  let behindSnake;
+  let nonSnake;
   newHead = {
     row: currDir[0] + snake[snake.length - 1].row,
-    col: currDir[1] + snake[snake.length - 1].row,
+    col: currDir[1] + snake[snake.length - 1].col,
   };
-  snake = snake.slice(1, snake.length - 1);
   snake.push(newHead);
-  console.log("snake?", snake);
+  behindSnake = snake.shift();
+  nonSnake = document.getElementById(`${behindSnake.row},${behindSnake.col}`);
+  nonSnake.classList.remove("snake");
+  console.log("snake", snake);
+  console.log("Behind SNake?", behindSnake);
 }
 
 //Tick
@@ -85,19 +91,6 @@ function makeGrid() {
   boardConatiner.append(board);
   makeSnake();
 }
-function startingGame() {
-  const startSnake = document.getElementByTagName("td")[0];
-  startSnake.classList.add("snake");
-  dropFood();
-  console.log(cell);
-}
-function dropFood() {
-  const rows = board.getElementsByTagName("tr");
-  const randomRow = Math.floor(Math.random() * rows.length);
-  const cells = rows[randomRow].getElementsByTagName("td");
-  const randomCell = Math.floor(Math.random() * cells.length);
-  const cell = cells[randomCell];
-  cell.classList.add("food");
-}
+
 //Game Start
 start.addEventListener("click", makeGrid);
