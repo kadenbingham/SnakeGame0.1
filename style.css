@@ -26,7 +26,11 @@ body {
   background-color: rgb(255, 0, 247);
 }
 .food {
-  background-color: whitesmoke;
+  height: 25px;
+  width: 25px;
+  background-color: crimson;
+  border-radius: 50%;
+  display: inline-block;
 }
 .startButton {
   border: none;
@@ -58,4 +62,7 @@ h1 {
 #boardContainer {
   align-content: center;
   text-align: center;
+}
+#gameDone {
+  background-color: crimson;
 }
