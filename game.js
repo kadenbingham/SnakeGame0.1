@@ -82,7 +82,7 @@ function dropFood() {
     numFoodCoords = 0;
     currScore = currScore + 1;
     score.textContent = `Score: ${currScore}`;
-    if (snakeSpeed > 50) {
+    if (snakeSpeed > 125) {
       snakeSpeed = snakeSpeed - 25;
     }
   }
