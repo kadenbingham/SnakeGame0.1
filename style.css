@@ -42,12 +42,13 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  transition-duration: 0.4s;
+  transition-duration: 0.2s;
   cursor: pointer;
 }
 .startButton:hover {
   background-color: rgb(167, 227, 167);
   color: black;
+  border-style: inset;
 }
 #start {
   display: flex;
@@ -62,7 +63,17 @@ h1 {
 #boardContainer {
   align-content: center;
   text-align: center;
+  border: 1px white;
+  border-style: ridge;
 }
 #gameDone {
   background-color: crimson;
+}
+#instruction {
+  text-align: center;
+}
+.instructions {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
 }

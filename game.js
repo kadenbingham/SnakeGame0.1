@@ -1,5 +1,5 @@
 //Variables
-let nIntervId;
+//let nIntervId;
 const boardConatiner = document.querySelector("#boardContainer");
 const board = document.createElement("div");
 const start = document.querySelector(".startButton");
@@ -10,22 +10,40 @@ const RIGHT = [0, 1];
 const LEFT = [0, -1];
 const DOWN = [1, 0];
 const score = document.querySelector("#scoreDisplay");
+let highScoreVal = 0;
 let numFoodCoords = 0;
-document.addEventListener("keydown", changeDir);
-
+let currScore = 0;
+let snakeSpeed = 400;
+const highScore = document.querySelector("#highscore");
 let snake = [
-  { row: 0, col: 0 },
-  { row: 0, col: 1 },
+  { row: 5, col: 5 },
+  { row: 5, col: 6 },
 ];
 let currDir = RIGHT;
+
+document.addEventListener("keydown", changeDir);
 function gameOver() {
+  let snakeBody = snake.slice(0, snake.length - 1);
+  let collision = snakeBody.some(
+    (part) =>
+      part.row === snake[snake.length - 1].row &&
+      part.col === snake[snake.length - 1].col
+  );
   if (
     snake[snake.length - 1].row < 0 ||
     snake[snake.length - 1].col < 0 ||
     snake[snake.length - 1].row > 14 ||
-    snake[snake.length - 1].col > 14
+    snake[snake.length - 1].col > 14 ||
+    collision
   ) {
     board.remove();
+    if (currScore > highScoreVal) {
+      highScoreVal = currScore;
+      highScore.textContent = `HighScore: ${currScore}`;
+    }
+    //currScore = 0;
+    score.textContent = `Score: ${currScore}`;
+    snakeSpeed = 400;
   }
 }
 function getRandomInt(min, max) {
@@ -53,15 +71,20 @@ function dropFood() {
     numFoodCoords
   ) {
     //eat/delete it and grow snake bigger
-    console.log("happy birthday");
+    console.log(snakeSpeed);
     let foodCoords = document.getElementById(numFoodCoords);
     foodCoords.removeAttribute("food");
-    foodCoords.style.backgroundColor = "rgb(167, 227, 167)";
+    foodCoords.className = "gameBoard";
     snake.unshift({
       row: `${snake[0].row}` - 1,
       col: `${snake[0].col}` - 1,
     });
     numFoodCoords = 0;
+    currScore = currScore + 1;
+    score.textContent = `Score: ${currScore}`;
+    if (snakeSpeed > 50) {
+      snakeSpeed = snakeSpeed - 25;
+    }
   }
 }
 function tick() {
@@ -126,13 +149,14 @@ function moveSnake() {
 
 //functions
 function makeGrid() {
+  currScore = 0;
+  score.textContent = `Score: ${currScore}`;
   snake = [
-    { row: 0, col: 0 },
-    { row: 0, col: 1 },
-    { row: 0, col: 2 },
-    { row: 0, col: 3 },
+    { row: 5, col: 5 },
+    { row: 5, col: 6 },
   ];
   console.log("end my suffering");
+
   // make the gameBoard div here, and append each cell to this div
   //const board = document.createElement("div");
   board.id = "gameBoard";
@@ -150,4 +174,4 @@ function makeGrid() {
 
 //Game Start
 start.addEventListener("click", makeGrid);
-start.addEventListener("click", (nIntervId = setInterval(tick, 200)));
+start.addEventListener("click", (nIntervId = setInterval(tick, snakeSpeed)));
